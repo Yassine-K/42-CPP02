@@ -6,7 +6,7 @@
 /*   By: ykhayri <ykhayri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 15:05:20 by ykhayri           #+#    #+#             */
-/*   Updated: 2024/07/21 14:32:05 by ykhayri          ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:00 by ykhayri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ Fixed::Fixed (const int integer){
 }
 
 Fixed::Fixed (const float floating){
-	val = roundf(floating * std::pow(2, bits));
+	val = roundf(floating * (1 << bits));
 	// std::cout << "Float constructor called" << std::endl;
 }
 
@@ -50,7 +50,7 @@ void Fixed::setRawBits( int const raw ) {
 }
 
 float Fixed::toFloat( void ) const {
-	return val / std::pow(2, bits);
+	return (float) val / (1 << bits);
 }
 
 int Fixed::toInt( void ) const{
@@ -121,7 +121,7 @@ Fixed Fixed::operator - (const Fixed& fixed) {
 }
 
 Fixed Fixed::operator * (const Fixed& fixed) {
-	float tmp = (val * fixed.val) / std::pow(2, bits * 2);
+	float tmp = (float) (val * fixed.val) / (1 << bits * 2);
 	return Fixed(tmp);
 }
 
