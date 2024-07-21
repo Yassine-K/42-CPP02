@@ -1,12 +1,12 @@
-NAME =	Fixed
+NAME = Fixed
 
-SRC =	Fixed.cpp main.cpp
+SRC = Fixed.cpp main.cpp
 
-OBJ =	${SRC:.cpp=.o}
+OBJ = ${SRC:.cpp=.o}
 
-SUP =	-std=c++98
+SUP = -std=c++98
 
-WWW =	-Wall -Wextra -Werror
+WWW = -Wall -Wextra -Werror
 
 %.o: %.cpp
 	@c++ ${WWW} -c $< -o $@
@@ -24,4 +24,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# .PHONY: all clean fclean re

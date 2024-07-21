@@ -5,24 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykhayri <ykhayri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 09:54:16 by ykhayri           #+#    #+#             */
-/*   Updated: 2024/01/15 10:23:19 by ykhayri          ###   ########.fr       */
+/*   Created: 2024/07/06 14:32:43 by ykhayri           #+#    #+#             */
+/*   Updated: 2024/07/21 10:52:40 by ykhayri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-
 #include <iostream>
 
 class Fixed {
-	private:
-		static const int	fr;
-		int					num;
 	public:
-		Fixed ( void );
-		~Fixed ( void );
-		Fixed (const Fixed &f);
-		Fixed & operator = (const Fixed &f);
+		Fixed ();
+		Fixed (const Fixed&);
+		Fixed & operator = (const Fixed&);
+		~Fixed ();
 		int getRawBits( void ) const;
-		void setRawBits( int const raw );	
+		void setRawBits( int const raw );
+
+	private:
+		int					val;
+		static const int	bits;
 };
