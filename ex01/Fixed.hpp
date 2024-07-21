@@ -5,30 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykhayri <ykhayri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 10:32:04 by ykhayri           #+#    #+#             */
-/*   Updated: 2024/01/15 12:14:49 by ykhayri          ###   ########.fr       */
+/*   Created: 2024/07/06 14:32:43 by ykhayri           #+#    #+#             */
+/*   Updated: 2024/07/21 12:26:03 by ykhayri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-
 #include <iostream>
+#include <cmath>
 
 class Fixed {
-	private:
-		static const int	fractional;
-		int					num;
-		int					fl;
 	public:
-		Fixed ( void );
-		Fixed ( const int n );
-		Fixed ( const float n );
-		~Fixed ( void );
-		Fixed (const Fixed &f);
-		Fixed & operator = (const Fixed &f);
-		friend std::ostream& operator << (std::ostream& os, const Fixed &f);
-		int		getRawBits( void ) const;
-		void	setRawBits( int const raw );
-		float	toFloat( void ) const;
-		int		toInt( void ) const;
+		Fixed ();
+		Fixed (const int);
+		Fixed (const float);
+		Fixed (const Fixed&);
+		Fixed & operator = (const Fixed&);
+		~Fixed ();
+		int getRawBits( void ) const;
+		void setRawBits( int const raw );
+		float toFloat( void ) const;
+		int toInt( void ) const;
+
+	private:
+		int					val;
+		static const int	bits;
 };
+
+std::ostream & operator << (std::ostream &out,const Fixed& fixed);

@@ -5,66 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykhayri <ykhayri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 10:32:00 by ykhayri           #+#    #+#             */
-/*   Updated: 2024/01/15 12:15:09 by ykhayri          ###   ########.fr       */
+/*   Created: 2024/07/06 15:05:20 by ykhayri           #+#    #+#             */
+/*   Updated: 2024/07/21 12:35:59 by ykhayri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-const int Fixed::fractional = 8;
+const int Fixed::bits = 8;
 
-Fixed::Fixed() {
+Fixed::Fixed () {
+	val = 0;
 	std::cout << "Default constructor called" << std::endl;
-	num = 0;
-	fl = 0;
 }
 
-Fixed::~Fixed() {
-	std::cout << "Destructor called" << std::endl;
+Fixed::Fixed (const Fixed& fixed) {
+	val = fixed.val;
+	std::cout << "Copy constructor called" << std::endl;
 }
 
-Fixed::Fixed (const Fixed &f) {
-	std::cout << "Copy constructor called"  << std::endl;
-	this->num = f.getRawBits();
-}
-
-Fixed::Fixed (const int n) {
-	std::cout << "Int constructor called"  << std::endl;
-	num = n;
-}
-
-Fixed::Fixed (const float n) {
-	std::cout << "Float constructor called"  << std::endl;
-	num = n;
-}
-
-Fixed& Fixed::operator=(const Fixed& f) {
+Fixed& Fixed::operator = (const Fixed& fixed) {
 	std::cout << "Copy assignment operator called" << std::endl;
-	this->num = f.getRawBits();
+	if (this != &fixed) {
+		val = fixed.getRawBits();
+	}
 	return *this;
 }
 
-
-std::ostream& operator<<(std::ostream& os, const Fixed &f) {
-	os << f.num << "." << f.fl;
-	return os;
+Fixed::~Fixed (){
+	std::cout << "Destructor called" << std::endl;
 }
 
 int Fixed::getRawBits( void ) const {
 	std::cout << "getRawBits member function called" << std::endl;
-	return num;
+	return this->val;
 }
 
 void Fixed::setRawBits( int const raw ) {
-	num = raw;
+	std::cout << "Destructor called" << std::endl;
+	this->val = raw;
 }
 
-
-float	Fixed::toFloat( void ) const {
-	return (float) num;
+float Fixed::toFloat( void ) const {
+	return val / std::pow(2, bits);
 }
 
-int		Fixed::toInt( void ) const {
-	return (int) num;
+int Fixed::toInt( void ) const{
+	return (int) val >> bits;
+}
+
+std::ostream & operator << (std::ostream &out,const Fixed& fixed){
+	out << fixed.toFloat();
+	return out;
+}
+
+Fixed::Fixed (const int integer){
+	std::cout << "Int constructor called" << std::endl;
+	val = integer << bits;
+}
+
+Fixed::Fixed (const float floating){
+	val = roundf(floating * std::pow(2, bits));
+	std::cout << "Float constructor called" << std::endl;
 }
